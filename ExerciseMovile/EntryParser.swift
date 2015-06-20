@@ -10,24 +10,24 @@ import UIKit
 
 class EntryParser: NSObject {
 
-    static func GetListOfEntries() -> [Entry] {
+    static func GetListOfEntries(data: NSData) -> [Entry] {
         
         var entryList : [Entry] = []
         
-        let path = NSBundle.mainBundle().pathForResource("exTest", ofType: "json")
+//        let path = NSBundle.mainBundle().pathForResource("exTest", ofType: "json")
+//        let jsonData = NSData(contentsOfFile: path!, options: nil, error: nil)
         
-        let jsonData = NSData(contentsOfFile: path!, options: nil, error: nil)
-        
-        let jsonDict = NSJSONSerialization.JSONObjectWithData(jsonData!, options: nil, error: nil) as? NSDictionary
-        
-        if let response = jsonDict!["responseData"] as? NSDictionary,
-            feed = response["feed"] as? NSDictionary,
-            entries = feed["entries"] as? NSArray {
-                
-                for e in entries {
-                    let myEntry = Entry.CreateEntry(e as! NSDictionary)
-                    entryList.append(myEntry)
-                }
+        if let jsonDict = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as? NSDictionary {
+            
+            if let resData = jsonDict["responseData"] as? NSDictionary,
+                feed = resData["feed"] as? NSDictionary,
+                entries = feed["entries"] as? NSArray {
+                    
+                    for e in entries {
+                        let myEntry = Entry.CreateEntry(e as! NSDictionary)
+                        entryList.append(myEntry)
+                    }
+            }
         }
         
         return entryList

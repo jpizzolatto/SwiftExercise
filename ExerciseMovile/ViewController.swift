@@ -14,12 +14,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tableView: UITableView!
     
     var entryList : [Entry] = []
-    var favoriteList : [Int] = []
+    var favoriteList : Set<Int> = []
+    var refreshControl:UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        entryList = EntryParser.GetListOfEntries()
+        
+        getJsonFromWeb()
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
+        
+        tableView.estimatedRowHeight = 55.0
+        tableView.rowHeight = UITableViewAutomaticDimension
+    }
+    
+    func getJsonFromWeb() {
         
         let url = NSURL(string: "https://gist.githubusercontent.com/marcelofabri/a5be8a9a6604a1139011/raw/9e9d7a4f13fa8bb0660bc5b4e14a09595982b9c7/new-pods.json")
         
@@ -28,28 +40,23 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             if error == nil {
                 
-                if let jsonDict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as? NSDictionary {
-                    
-                    if let resData = jsonDict["responseData"] as? NSDictionary,
-                           feed = resData["feed"] as? NSDictionary,
-                           entries = feed["entries"] as? NSArray {
-                            
-                            for e in entries {
-                                let myEntry = Entry.CreateEntry(e as! NSDictionary)
-                                self.entryList.append(myEntry)
-                            }
-                            
-                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
-                            })
-                    }
-                }
+                self.entryList = EntryParser.GetListOfEntries(data!)
+                
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                    self.refreshControl.endRefreshing()
+                })
             }
         }
         task.resume()
+    }
+    
+    func refresh(sender:AnyObject)
+    {
+        self.entryList.removeAll(keepCapacity: true)
+        self.tableView.reloadData()
         
-        tableView.estimatedRowHeight = 55.0
-        tableView.rowHeight = UITableViewAutomaticDimension
+        getJsonFromWeb()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -80,24 +87,24 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // Add or remove favorite
         
         var title = "Star"
-        if contains(self.favoriteList, indexPath.row) {
+        if self.favoriteList.contains(indexPath.row) {
             title = "Unstar"
         }
         
         var favoriteAction = UITableViewRowAction(style: .Normal, title: title) { (action, indexPath) -> Void in
             
             tableView.editing = false
-            let index = find(self.favoriteList, indexPath.row)
-            if index != nil {
-                self.favoriteList.removeAtIndex(index!)
+
+            if self.favoriteList.contains(indexPath.row) {
+                self.favoriteList.remove(indexPath.row)
             }
             else {
-                self.favoriteList.append(indexPath.row)
+                self.favoriteList.insert(indexPath.row)
             }
             self.tableView.reloadData()
         }
         
-        if contains(self.favoriteList, indexPath.row) {
+        if self.favoriteList.contains(indexPath.row) {
             favoriteAction.backgroundColor = UIColor.redColor()
         }
         else {
