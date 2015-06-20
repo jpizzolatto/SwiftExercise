@@ -13,6 +13,10 @@
 		CE4779901B35A14900F6F991 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE47798F1B35A14900F6F991 /* Images.xcassets */; };
 		CE4779931B35A14900F6F991 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE4779911B35A14900F6F991 /* LaunchScreen.xib */; };
 		CE47799F1B35A14900F6F991 /* ExerciseMovileTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE47799E1B35A14900F6F991 /* ExerciseMovileTests.swift */; };
+		CE4779A91B35A33600F6F991 /* exTest.json in Resources */ = {isa = PBXBuildFile; fileRef = CE4779A81B35A33600F6F991 /* exTest.json */; };
+		CE4779AD1B35B19C00F6F991 /* EntryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4779AC1B35B19C00F6F991 /* EntryModel.swift */; };
+		CE4779AF1B35B93400F6F991 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4779AE1B35B93400F6F991 /* TableViewCell.swift */; };
+		CE4779B11B35E2F600F6F991 /* EntryParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4779B01B35E2F600F6F991 /* EntryParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,10 @@
 		CE4779981B35A14900F6F991 /* ExerciseMovileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExerciseMovileTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE47799D1B35A14900F6F991 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE47799E1B35A14900F6F991 /* ExerciseMovileTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseMovileTests.swift; sourceTree = "<group>"; };
+		CE4779A81B35A33600F6F991 /* exTest.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = exTest.json; sourceTree = "<group>"; };
+		CE4779AC1B35B19C00F6F991 /* EntryModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryModel.swift; sourceTree = "<group>"; };
+		CE4779AE1B35B93400F6F991 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		CE4779B01B35E2F600F6F991 /* EntryParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntryParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,8 +86,12 @@
 			isa = PBXGroup;
 			children = (
 				CE4779881B35A14900F6F991 /* AppDelegate.swift */,
+				CE4779B01B35E2F600F6F991 /* EntryParser.swift */,
 				CE47798A1B35A14900F6F991 /* ViewController.swift */,
+				CE4779AE1B35B93400F6F991 /* TableViewCell.swift */,
 				CE47798C1B35A14900F6F991 /* Main.storyboard */,
+				CE4779AC1B35B19C00F6F991 /* EntryModel.swift */,
+				CE4779A81B35A33600F6F991 /* exTest.json */,
 				CE47798F1B35A14900F6F991 /* Images.xcassets */,
 				CE4779911B35A14900F6F991 /* LaunchScreen.xib */,
 				CE4779861B35A14900F6F991 /* Supporting Files */,
@@ -192,6 +204,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE4779A91B35A33600F6F991 /* exTest.json in Resources */,
 				CE47798E1B35A14900F6F991 /* Main.storyboard in Resources */,
 				CE4779931B35A14900F6F991 /* LaunchScreen.xib in Resources */,
 				CE4779901B35A14900F6F991 /* Images.xcassets in Resources */,
@@ -212,7 +225,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE4779AD1B35B19C00F6F991 /* EntryModel.swift in Sources */,
+				CE4779AF1B35B93400F6F991 /* TableViewCell.swift in Sources */,
 				CE47798B1B35A14900F6F991 /* ViewController.swift in Sources */,
+				CE4779B11B35E2F600F6F991 /* EntryParser.swift in Sources */,
 				CE4779891B35A14900F6F991 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -411,6 +427,7 @@
 				CE4779A41B35A14900F6F991 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE4779A51B35A14900F6F991 /* Build configuration list for PBXNativeTarget "ExerciseMovileTests" */ = {
 			isa = XCConfigurationList;
@@ -419,6 +436,7 @@
 				CE4779A71B35A14900F6F991 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
