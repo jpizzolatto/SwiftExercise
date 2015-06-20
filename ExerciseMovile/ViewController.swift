@@ -19,7 +19,34 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        entryList = EntryParser.GetListOfEntries()
+//        entryList = EntryParser.GetListOfEntries()
+        
+        let url = NSURL(string: "https://gist.githubusercontent.com/marcelofabri/a5be8a9a6604a1139011/raw/9e9d7a4f13fa8bb0660bc5b4e14a09595982b9c7/new-pods.json")
+        
+        let task = NSURLSession.sharedSession().dataTaskWithURL(url!) {
+            (data, _ , error) in
+            
+            if error == nil {
+                
+                if let jsonDict = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: nil) as? NSDictionary {
+                    
+                    if let resData = jsonDict["responseData"] as? NSDictionary,
+                           feed = resData["feed"] as? NSDictionary,
+                           entries = feed["entries"] as? NSArray {
+                            
+                            for e in entries {
+                                let myEntry = Entry.CreateEntry(e as! NSDictionary)
+                                self.entryList.append(myEntry)
+                            }
+                            
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                self.tableView.reloadSections(NSIndexSet(index: 0), withRowAnimation: .Automatic)
+                            })
+                    }
+                }
+            }
+        }
+        task.resume()
         
         tableView.estimatedRowHeight = 55.0
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -52,9 +79,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // Add or remove favorite
         
-        var title = "Add Fav"
+        var title = "Star"
         if contains(self.favoriteList, indexPath.row) {
-            title = "Remove Fav"
+            title = "Unstar"
         }
         
         var favoriteAction = UITableViewRowAction(style: .Normal, title: title) { (action, indexPath) -> Void in
@@ -78,7 +105,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
         
         // Add to reading list action
-        var readingListAction = UITableViewRowAction(style: .Default, title: "Reading") { (action, indexPath) -> Void in
+        var readingListAction = UITableViewRowAction(style: .Default, title: "Add to Reading list") { (action, indexPath) -> Void in
             
             let list = SSReadingList.defaultReadingList()
             list.addReadingListItemWithURL(entry.link, title: entry.title, previewText: nil, error: nil)
