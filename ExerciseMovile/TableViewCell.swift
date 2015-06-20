@@ -28,9 +28,11 @@ class TableViewCell: UITableViewCell {
         
         if  entry.ThisIsTodayEntry() {
             self.titleCell.font = UIFont.boldSystemFontOfSize(17)
+            self.snippetCell.font = UIFont.boldSystemFontOfSize(14)
         }
         else {
             self.titleCell.font = UIFont.systemFontOfSize(17)
+            self.snippetCell.font = UIFont.systemFontOfSize(14)
         }
         
         if isFavorite {
