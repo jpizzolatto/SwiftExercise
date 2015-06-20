@@ -130,6 +130,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 case .Destructive:
                     println("destructive")
                 }
+                
+                self.tableView.editing = false
             }))
             self.presentViewController(alert, animated: true, completion: nil)
 
