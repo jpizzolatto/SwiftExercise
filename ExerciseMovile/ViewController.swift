@@ -119,21 +119,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             var alert = UIAlertController(title: "Success", message: "Link added into reading list", preferredStyle: UIAlertControllerStyle.Alert)
 
-            alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: { action in
-                switch action.style{
-                case .Default:
-                    println("default")
-                    
-                case .Cancel:
-                    println("cancel")
-                    
-                case .Destructive:
-                    println("destructive")
-                }
-                
-                self.tableView.editing = false
-            }))
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
             self.presentViewController(alert, animated: true, completion: nil)
+            self.tableView.editing = false
 
         }
         readingListAction.backgroundColor = UIColor.blueColor()
