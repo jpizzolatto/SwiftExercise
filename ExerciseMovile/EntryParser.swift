@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 User. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class EntryParser: NSObject {
+public struct EntryParser {
 
     static func GetListOfEntries(data: NSData) -> [Entry] {
         
