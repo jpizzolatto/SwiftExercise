@@ -49,14 +49,10 @@ struct Entry {
         
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)!
         
-        let entryDate = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: self.publishedDate)
-        let todayDate = calendar.components(.CalendarUnitYear | .CalendarUnitMonth | .CalendarUnitDay, fromDate: NSDate())
-        
-        if  entryDate.day == todayDate.day &&
-            entryDate.month == todayDate.month &&
-            entryDate.year == todayDate.year {
-                return true
+        if calendar.isDateInToday(self.publishedDate) {
+            return true
         }
+        
         return false
     }
     
